@@ -34,10 +34,10 @@ router.get('/get/:machine', async function (req, res) {
       data = line
     }
 
-    res.send(data)
+    return res.send(data)
   }
 
-  res.json
+  res.status(401).json({message : 'Device not found'})
 })
 
 module.exports = router;
