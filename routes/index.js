@@ -20,6 +20,18 @@ router.put('/put/:machine', function (req, res) {
   res.json({message : 'success'})
 })
 
+
+router.post('/put/:machine', function (req, res) {
+  const file = path.join(process.cwd(), 'data', req.params.machine, 'data.txt')
+  if(!fs.existsSync(file)) {
+    fs.mkdirSync(path.join(process.cwd(), 'data', req.params.machine))
+    fs.writeFileSync(file, '')
+  }
+  const data = req.body.data
+  fs.writeFileSync(file, data)
+  res.json({message : 'success'})
+})
+
 router.get('/get/:machine', async function (req, res) {
   const file = path.join(process.cwd(), 'data', req.params.machine, 'data.txt')
   if(fs.existsSync(file)) {
